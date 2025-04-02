@@ -2,8 +2,11 @@ import { Button } from "@/components/ui/button";
 import React from "react";
 import { Link } from "react-router-dom";
 import companies from '../data/companies.json'
+import faqs from '../data/faq.json'
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const LandingPage = () => {
   return (
@@ -26,6 +29,7 @@ const LandingPage = () => {
          <Button variant="destructive" size="xl">Post a Job</Button>
         </Link>
       </div>
+      {/* carousel */}
       <Carousel 
        plugins={[Autoplay({delay:2000})]}
       className="w-full py-10">
@@ -41,6 +45,46 @@ const LandingPage = () => {
           })}
         </CarouselContent>
       </Carousel>
+      {/* banner */}
+      <img src="/banner.jpeg" className="w-full" />
+
+      {/* cards */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              For Job Seekers
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+             Search and apply for jobs, track applications, and more.
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>
+             For Employers
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            Posts jobs, manage applicatons, and find the best candidates.
+          </CardContent>
+        </Card>
+      </section>
+       {/* Accordian */}
+
+       <Accordion type="single" collapsible>
+        {faqs.map((faq,index)=>{
+          return(
+            <AccordionItem key={index} value ={`item-${index+1}`}>
+              <AccordionTrigger>{faq.question}</AccordionTrigger>
+              <AccordionContent>{faq.answer}</AccordionContent>
+            </AccordionItem>
+          );
+        })}
+       </Accordion>
+
+     
 
     </main>
   )
