@@ -17,7 +17,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import useFetch from "@/hooks/use-fetch";
-import { applyToJob } from "@/api/apiApplication";
+import { applyToJob } from "@/api/apiApplications";
 import { BarLoader } from "react-spinners";
 
 const schema = z.object({
