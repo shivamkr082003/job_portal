@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
+import { useUser } from "@clerk/clerk-react";
 import { Button } from './ui/button'
 import { Link, useSearchParams } from 'react-router-dom'
 import { SignedIn, SignedOut, SignIn, SignInButton, UserButton } from '@clerk/clerk-react'
-import { BriefcaseBusiness, PenBox } from 'lucide-react'
+import { BriefcaseBusiness, PenBox ,Heart } from 'lucide-react'
 
 const Header = () => {
   const [showSignIn , setShowSignIn]=useState(false);
 
   const [search, setSearch]=useSearchParams();
+  const {user}=useUser();
 
   useEffect(()=>{
     if(search.get("sign-in")){
@@ -24,7 +26,7 @@ const Header = () => {
   return (
     <>
 <nav className="py-4 flex justify-between items-center">
-    <Link>
+    <Link to="/">
     <img src="logo.png" className="h-20" />
     </Link>
 
@@ -33,24 +35,32 @@ const Header = () => {
        <Button variant="outline" onClick={()=>setShowSignIn(true)}>Login</Button>
       </SignedOut>
       <SignedIn>
-
+        {user?.unsafeMetadata?.role=== "recruiter" &&(
+      <Link to="/post-job">
         <Button variant="destructive" className="rounded-full">
           <PenBox size={20} className="mr-2"/>
           Post a Job</Button>
-          <Link to="/post-job"></Link>
+          </Link>
+        )}
         <UserButton
         appearance={{
           elements:{
-            avatarBox:"w-10 h-10"
-          }
+            avatarBox:"w-10 h-10",
+          },
         }}
         >
           <UserButton.MenuItems>
             <UserButton.Link
             label="My Jobs"
-            labelIcons={<BriefcaseBusiness size={15} />}
-            href="/my-job"
+            labelIcon={<BriefcaseBusiness size={15} />}
+            href="/my-jobs"
             />
+            <UserButton.Link
+                  label="Saved Jobs"
+                  labelIcon={<Heart size={15} />}
+                  href="/saved-jobs"
+                />
+                <UserButton.Action label="manageAccount" />
           </UserButton.MenuItems>
 
         </UserButton>
