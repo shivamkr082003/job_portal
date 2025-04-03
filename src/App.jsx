@@ -1,7 +1,7 @@
-
 import {createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import { ThemeProvider } from "@/components/theme-provider"
+import ProtectedRoute from "./components/protected-route";
 import AppLayout from "./layouts/AppLayout";
 import LandingPage from "./pages/landing";
 import Onboarding from "./pages/Onboarding";
@@ -11,54 +11,74 @@ import PostJob from "./pages/Post_job";
 import SaveJobs from "./pages/Saved_job";
 import MyJobs from "./pages/My_job";
 
-const router =createBrowserRouter([
+
+
+const router = createBrowserRouter([
   {
-    element: <AppLayout/>,
-    children:[
+    element: <AppLayout />,
+    children: [
       {
-        path:'/',
-        element: <LandingPage/>
+        path: "/",
+        element: <LandingPage />,
       },
       {
-        path:'/onboarding',
-        element: <Onboarding/>
+        path: "/onboarding",
+        element: (
+          <ProtectedRoute>
+            <Onboarding />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/jobs',
-        element: <JobListing/>
+        path: "/jobs",
+        element: (
+          <ProtectedRoute>
+            <JobListing />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/job/:id',
-        element: <JobPage/>
+        path: "/post-job",
+        element: (
+          <ProtectedRoute>
+            <PostJob />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/post-job',
-        element: <PostJob/>
+        path: "/my-jobs",
+        element: (
+          <ProtectedRoute>
+            <MyJobs />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/saved-job',
-        element: <SaveJobs/>
+        path: "/saved-jobs",
+        element: (
+          <ProtectedRoute>
+            <SaveJobs />
+          </ProtectedRoute>
+        ),
       },
       {
-        path:'/my-job',
-        element: <MyJobs/>
+        path: "/job/:id",
+        element: (
+          <ProtectedRoute>
+            <JobPage />
+          </ProtectedRoute>
+        ),
       },
-    ]
+    ],
   },
-])
+]);
 
 function App() {
   return (
-
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      
-      <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </ThemeProvider>
-
-  )
-   
-
-  
+  );
 }
 
 export default App;
