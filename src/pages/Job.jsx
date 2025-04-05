@@ -107,7 +107,7 @@ const JobPage = () => {
         source={job?.requirements}
         className="bg-transparent sm:text-lg" // add global ul styles - tutorial
       />
-      {job?.recruiter_id !== user?.id && (
+      {job?.recruiter_id === user?.id && (
         <ApplyJobDrawer
           job={job}
           user={user}
@@ -116,16 +116,17 @@ const JobPage = () => {
         />
       )}
       {loadingHiringStatus && <BarLoader width={"100%"} color="#36d7b7" />}
-      {job?.applications?.length > 0 && job?.recruiter_id === user?.id && (
-        <div className="flex flex-col gap-2">
-          <h2 className="font-bold mb-4 text-xl ml-1">Applications</h2>
-          {job?.applications.map((application) => {
-            return (
-              <ApplicationCard key={application.id} application={application} />
-            );
-          })}
-        </div>
-      )}
+      
+      {job?.recruiter_id !== user?.id &&  job?.applications?.length > 0 && (
+         <div className="flex flex-col gap-2">
+             <h2 className="font-bold mb-4 text-xl ml-1">Applications</h2>
+                   {job.applications.map((application) => (
+                    <ApplicationCard key={application.id} application={application} />
+      ))}
+  </div>
+)}
+
+      
     </div>
   );
 };
