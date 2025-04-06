@@ -29,7 +29,7 @@ const ApplicationCard = ({ application, isCandidate = false }) => {
   const { loading: loadingHiringStatus, fn: fnHiringStatus } = useFetch(
     updateApplicationStatus,
     {
-      job_id: application.job_id,
+      application_id: application.id,
     }
   );
 

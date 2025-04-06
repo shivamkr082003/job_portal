@@ -3,18 +3,21 @@ import { Outlet } from "react-router-dom";
 
 const AppLayout = () => {
   return (
-    <div>
-      <div className="grid-background"></div>
-      <main className="min-h-screen container">
+    <div className="min-h-screen flex flex-col relative">
+      <div className="absolute inset-0 -z-10 grid-background"></div>
+
+      <main className="flex-grow container mx-auto px-4">
         <Header />
         <Outlet />
       </main>
-      <div className="p-10 text-center bg-gray-800 mt-10">
-        Made with 💗 by RoadsideCoder
-      </div>
+
+      <footer className="mt-8 p-6 text-center bg-gray-800 text-white">
+        Made with 💗 by Shivam
+      </footer>
     </div>
   );
 };
 
 export default AppLayout;
+
 

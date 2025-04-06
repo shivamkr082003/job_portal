@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Heart, MapPinIcon, Trash2Icon } from "lucide-react";
 import { Button } from "./ui/button";
+import { useAuth } from "@clerk/clerk-react"; // Add this at top
+
 import {
   Card,
   CardContent,
@@ -15,15 +17,10 @@ import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
 import { BarLoader } from "react-spinners";
 
-const JobCard = ({
-  job,
-  savedInit = false,
-  onJobAction = () => {},
-  isMyJob = false,
-}) => {
+const JobCard = ({ job, savedInit = false, onJobAction = () => {}, isMyJob = false }) => {
   const [saved, setSaved] = useState(savedInit);
-
   const { user } = useUser();
+  const { getToken } = useAuth(); // ✅ getToken from Clerk
 
   const { loading: loadingDeleteJob, fn: fnDeleteJob } = useFetch(deleteJob, {
     job_id: job.id,
@@ -36,10 +33,16 @@ const JobCard = ({
   } = useFetch(saveJob);
 
   const handleSaveJob = async () => {
-    await fnSavedJob({
-      user_id: user.id,
-      job_id: job.id,
-    });
+    const token = await getToken();
+    const saveData = { user_id: user.id, job_id: job.id };
+    const alreadySaved = saved;
+
+    const res = await fnSavedJob(token, { alreadySaved }, saveData);
+
+    if (res !== null) {
+      setSaved(!alreadySaved); // 🔁 toggle saved state
+    }
+
     onJobAction();
   };
 
@@ -49,27 +52,34 @@ const JobCard = ({
   };
 
   useEffect(() => {
-    if (savedJob !== undefined) setSaved(savedJob?.length > 0);
+    if (savedJob !== undefined) {
+      setSaved(savedJob?.length > 0);
+    }
   }, [savedJob]);
+
+  // ... JSX remains the same ...
+
 
   return (
     <Card className="flex flex-col">
       {loadingDeleteJob && (
         <BarLoader className="mt-4" width={"100%"} color="#36d7b7" />
       )}
-      <CardHeader className="flex">
-        <CardTitle className="flex justify-between font-bold">
-          {job.title}
-          {isMyJob && (
-            <Trash2Icon
-              fill="red"
-              size={18}
-              className="text-red-300 cursor-pointer"
-              onClick={handleDeleteJob}
-            />
-          )}
-        </CardTitle>
-      </CardHeader>
+      <CardHeader className="flex justify-between items-start">
+  <div className="flex justify-between w-full items-start">
+    <CardTitle className="font-bold">{job.title}</CardTitle>
+
+    {isMyJob && (
+      <Trash2Icon
+        fill="red"
+        size={18}
+        className="text-red-300 cursor-pointer hover:scale-110 transition-transform"
+        onClick={handleDeleteJob}
+      />
+    )}
+  </div>
+</CardHeader>
+
       <CardContent className="flex flex-col gap-4 flex-1">
         <div className="flex justify-between">
           {job.company && <img src={job.company.logo_url} className="h-6" />}

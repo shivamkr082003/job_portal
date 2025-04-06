@@ -34,15 +34,19 @@ export async function applyToJob(token, _, jobData) {
 }
 
 // - Edit Application Status ( recruiter )
-export async function updateApplicationStatus(token, { job_id }, status) {
+export async function updateApplicationStatus(token, { application_id }, status) {
   const supabase = await supabaseClient(token);
+  console.log(application_id);
+  
   const { data, error } = await supabase
     .from("applications")
     .update({ status })
-    .eq("job_id", job_id)
+    .eq("id", application_id)
     .select();
 
   if (error || data.length === 0) {
+    console.log(error);
+    
     console.error("Error Updating Application Status:", error);
     return null;
   }
