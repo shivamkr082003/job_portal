@@ -8,7 +8,7 @@ import Onboarding from "./pages/Onboarding";
 import JobListing from "./pages/Joblisting";
 import JobPage from "./pages/Job";
 import PostJob from "./pages/Post_job";
-import SaveJobs from "./pages/Saved_job";
+import SavedJobs from "./pages/Saved_job";
 import MyJobs from "./pages/My_job";
 
 
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         path: "/saved-jobs",
         element: (
           <ProtectedRoute>
-            <SaveJobs />
+            <SavedJobs />
           </ProtectedRoute>
         ),
       },

@@ -3,6 +3,7 @@ import { useUser } from "@clerk/clerk-react";
 import { State } from "country-state-city";
 import { BarLoader } from "react-spinners";
 import useFetch from "@/hooks/use-fetch";
+import { getCompanies } from "@/api/apiCompanies";
 
 import JobCard from "@/components/job-card";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { getCompanies } from "@/api/apiCompanies";
+
 import { getJobs } from "@/api/apiJobs";
 
 const JobListing = () => {

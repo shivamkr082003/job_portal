@@ -79,10 +79,10 @@ const JobPage = () => {
         </div>
       </div>
 
-      {job?.recruiter_id === user?.id && (
+      {job?.recruiter_id !== user?.id && (
         <Select onValueChange={handleStatusChange}>
           <SelectTrigger
-            className={`w-full ${job?.isOpen ? "bg-green-950" : "bg-red-950"}`}
+         className={`w-full ${job?.isOpen ? "bg-green-950" : "bg-red-950"}`}   
           >
             <SelectValue
               placeholder={

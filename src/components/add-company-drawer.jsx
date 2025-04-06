@@ -8,6 +8,7 @@ import {
     DrawerTitle,
     DrawerTrigger,
   } from "@/components/ui/drawer";
+
   import { Button } from "./ui/button";
   import { Input } from "./ui/input";
   import { z } from "zod";
@@ -52,6 +53,7 @@ import {
       fnAddCompany({
         ...data,
         logo: data.logo[0],
+        user_id: user.id,
       });
     };
   

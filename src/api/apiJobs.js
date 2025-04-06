@@ -72,20 +72,20 @@ export async function saveJob(token, { alreadySaved }, saveData) {
   if (alreadySaved) {
     // If the job is already saved, remove it
     const { data, error: deleteError } = await supabase
-      .from("save_jobs")
+      .from("saved_job")
       .delete()
       .eq("job_id", saveData.job_id);
 
     if (deleteError) {
       console.error("Error removing saved job:", deleteError);
-      return null;
+      return data;
     }
 
     return data;
   } else {
     // If the job is not saved, add it to saved jobs
     const { data, error: insertError } = await supabase
-      .from("save_jobs")
+      .from("saved_job")
       .insert([saveData])
       .select();
 
@@ -99,8 +99,9 @@ export async function saveJob(token, { alreadySaved }, saveData) {
 }
 
 // - job isOpen toggle - (recruiter_id = auth.uid())
-export async function updateHiringStatus(token, { job_id }, isOpen) {
+export async function updateHiringStatus(token, { job_id, isOpen }) {
   const supabase = await supabaseClient(token);
+
   const { data, error } = await supabase
     .from("jobs")
     .update({ isOpen })
@@ -114,6 +115,7 @@ export async function updateHiringStatus(token, { job_id }, isOpen) {
 
   return data;
 }
+
 
 // get my created jobs
 export async function getMyJobs(token, { recruiter_id }) {
@@ -144,7 +146,7 @@ export async function deleteJob(token, { job_id }) {
 
   if (deleteError) {
     console.error("Error deleting job:", deleteError);
-    return data;
+    return null;
   }
 
   return data;
