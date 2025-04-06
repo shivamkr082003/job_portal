@@ -30,15 +30,11 @@ const ApplicationCard = ({ application, isCandidate = false }) => {
     updateApplicationStatus,
     {
       job_id: application.job_id,
-    },
+    }
   );
-  const job_id = application.job_id;
-  
 
   const handleStatusChange = (status) => {
-    fnHiringStatus({job_id, status}).then(() => fnHiringStatus());
-    console.log(job_id)
-    updateApplicationStatus(job_id)
+    fnHiringStatus(status).then(() => fnHiringStatus());
   };
 
   return (

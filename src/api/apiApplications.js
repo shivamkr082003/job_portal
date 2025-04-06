@@ -1,8 +1,6 @@
-import supabaseClient from "@/utils/supabase";
+import supabaseClient, { supabaseUrl } from "@/utils/supabase";
 
 // - Apply to job ( candidate )
-
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 export async function applyToJob(token, _, jobData) {
   const supabase = await supabaseClient(token);
 

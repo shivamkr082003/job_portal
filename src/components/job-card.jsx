@@ -31,20 +31,16 @@ const JobCard = ({
 
   const {
     loading: loadingSavedJob,
-    data: SavedJobs,
-    fn: fnSavedJobs,
+    data: savedJob,
+    fn: fnSavedJob,
   } = useFetch(saveJob);
 
   const handleSaveJob = async () => {
-    await fnSavedJobs(
-   
-      {
-        user_id: user.id,
-        job_id: job.id,
-      }
-    );
+    await fnSavedJob({
+      user_id: user.id,
+      job_id: job.id,
+    });
     onJobAction();
-    
   };
 
   const handleDeleteJob = async () => {
@@ -53,8 +49,8 @@ const JobCard = ({
   };
 
   useEffect(() => {
-    if (SavedJobs !== undefined) setSaved(SavedJobs?.length > 0);
-  }, [SavedJobs]);
+    if (savedJob !== undefined) setSaved(savedJob?.length > 0);
+  }, [savedJob]);
 
   return (
     <Card className="flex flex-col">
