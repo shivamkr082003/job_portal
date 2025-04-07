@@ -4,13 +4,13 @@ import AppLayout from "./layouts/app-layout";
 import ProtectedRoute from "./components/protected-route";
 import { ThemeProvider } from "./components/theme-provider";
 
-import LandingPage from "./pages/Landing";
-import Onboarding from "./pages/Onboarding";
-import PostJob from "./pages/post-job";
-import JobListing from "./pages/JobListing";
-import MyJobs from "./pages/my-jobs";
-import SavedJobs from "./pages/saved-jobs";
-import JobPage from "./pages/Job";
+import LandingPage from "./pages/Landing.jsx";
+import Onboarding from "./pages/Onboarding.jsx";
+import PostJob from "./pages/post-job.jsx";
+import JobListing from "./pages/Joblisting.jsx";
+import MyJobs from "./pages/my-jobs.jsx";
+import SavedJobs from "./pages/saved-jobs.jsx";
+import JobPage from "./pages/Job.jsx";
 
 import "./App.css";
 
