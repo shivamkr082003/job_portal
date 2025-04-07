@@ -4,7 +4,7 @@ import AppLayout from "./layouts/app-layout";
 import ProtectedRoute from "./components/protected-route";
 import { ThemeProvider } from "./components/theme-provider";
 
-import LandingPage from "./pages/landing";
+import LandingPage from "./pages/Landing";
 import Onboarding from "./pages/onboarding";
 import PostJob from "./pages/post-job";
 import JobListing from "./pages/jobListing";
