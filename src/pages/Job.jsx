@@ -85,25 +85,31 @@ const JobPage = () => {
         </div>
       </div>
 
-      { String(job?.recruiter_id?.trim()) === String(user?.id?.trim()) && (
-         
-        
-        <Select onValueChange={handleStatusChange}>
-          <SelectTrigger
-            className={`w-full ${job?.isOpen ? "bg-green-950" : "bg-red-950"}`}
-          >
-            <SelectValue
-              placeholder={
-                "Hiring Status " + (job?.isOpen ? "( Open )" : "( Closed )")
-              }
-            />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="open">Open</SelectItem>
-            <SelectItem value="closed">Closed</SelectItem>
-          </SelectContent>
-        </Select>
+      {job?.recruiter_id === user?.id && (
+     <Select onValueChange={handleStatusChange}>
+     <SelectTrigger
+       className={`w-full ${job?.isOpen ? "bg-green-950" : "bg-red-950"}`}
+     >
+       <SelectValue
+         placeholder={
+           "Hiring Status " + (job?.isOpen ? "( Open )" : "( Closed )")
+         }
+       />
+     </SelectTrigger>
+     <SelectContent>
+       <SelectItem value="open">Open</SelectItem>
+       <SelectItem value="closed">Closed</SelectItem>
+     </SelectContent>
+   </Select>
+   
+    
+    
+     
+     
+      
       )}
+
+
 
       <h2 className="text-2xl sm:text-3xl font-bold">About the job</h2>
       <p className="sm:text-lg">{job?.description}</p>

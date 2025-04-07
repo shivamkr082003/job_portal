@@ -67,20 +67,31 @@ export async function getSingleJob(token, { job_id }) {
 
 // - Add / Remove Saved Job
 // 🔧 FILE: apiJobs.js
-export async function saveJob(token, { alreadySaved }, saveData) {
-  const supabase = await supabaseClient(token);
-  console.log("User ID:", user.id);
-console.log("Saved:", saved);
-console.log("Token:", token);
+export async function saveJob(token, options = {}, ...args) {
+  const alreadySaved=args[0].alreadySaved;
+  console.log(args);
+  
+  const saveData =args[1] // ✅ THIS IS KEY
 
+  console.log("✅ saveData:", saveData);
+  console.log("already saved: ", alreadySaved);
+  
+
+  const supabase = await supabaseClient(token);
+
+  if (!saveData?.job_id || !saveData?.user_id) {
+    console.error("❌ Missing job_id or user_id");
+    return null;
+  }
 
   if (alreadySaved) {
-    console.log("🧨 UNSAVING job", saveData);
+    console.log("delete");
+    
     const { data, error } = await supabase
       .from("saved_jobs")
       .delete()
       .eq("job_id", saveData.job_id)
-      .eq("user_id", saveData.user_id); // SUPER IMPORTANT
+      .eq("user_id", saveData.user_id);
 
     if (error) {
       console.error("❌ Error unsaving job:", error);
@@ -89,10 +100,11 @@ console.log("Token:", token);
 
     return data;
   } else {
-    console.log("💾 SAVING job", saveData);
+    console.log("Add");
+    
     const { data, error } = await supabase
       .from("saved_jobs")
-      .insert([saveData])
+      .insert(saveData)
       .select();
 
     if (error) {
@@ -103,6 +115,8 @@ console.log("Token:", token);
     return data;
   }
 }
+
+
 
 
 // - job isOpen toggle - (recruiter_id = auth.uid())
@@ -160,6 +174,7 @@ export async function deleteJob(token, { job_id }) {
 // - post job
 export async function addNewJob(token, _, jobData) {
   const supabase = await supabaseClient(token);
+  // console.log(jobData)
 
   const { data, error } = await supabase
     .from("jobs")
