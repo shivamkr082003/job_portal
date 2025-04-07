@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { BarLoader } from "react-spinners";
 
+
 const Onboarding = () => {
   const { user, isLoaded } = useUser();
   const navigate = useNavigate();
