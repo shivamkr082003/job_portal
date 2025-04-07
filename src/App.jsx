@@ -5,12 +5,12 @@ import ProtectedRoute from "./components/protected-route";
 import { ThemeProvider } from "./components/theme-provider";
 
 import LandingPage from "./pages/Landing";
-import Onboarding from "./pages/onboarding";
+import Onboarding from "./pages/Onboarding";
 import PostJob from "./pages/post-job";
-import JobListing from "./pages/jobListing";
+import JobListing from "./pages/JobListing";
 import MyJobs from "./pages/my-jobs";
 import SavedJobs from "./pages/saved-jobs";
-import JobPage from "./pages/job";
+import JobPage from "./pages/Job";
 
 import "./App.css";
 
