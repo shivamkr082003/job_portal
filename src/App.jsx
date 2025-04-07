@@ -8,7 +8,7 @@ import LandingPage from "./pages/Landing.jsx";
 import Onboarding from "./pages/Onboarding.jsx";
 import PostJob from "./pages/post-job.jsx";
 import JobListing from "./pages/Joblisting.jsx";
-import MyJobs from "./pages/my-jobs";
+import MyJobs from "./pages/my-jobs.jsx";
 import SavedJobs from "./pages/saved-jobs.jsx";
 import JobPage from "./pages/Job.jsx";
 
